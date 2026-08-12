@@ -4,14 +4,121 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Suvarna Real Estate</title>
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background-color: #f4f6f9; color: #333; line-height: 1.6; }
+
+    /* ===== HEADER ===== */
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      background-color: #0b1a3a; padding: 15px 8%; position: sticky; top: 0; z-index: 1000;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; color: #f5c518; font-size: 1.4rem; font-weight: 700; }
+    .logo span { color: #ffffff; font-weight: 300; }
+    nav ul { list-style: none; display: flex; gap: 25px; }
+    nav a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+    nav a:hover { color: #f5c518; }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      background: linear-gradient(rgba(11, 26, 58, 0.75), rgba(11, 26, 58, 0.75)), 
+                  url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      text-align: center; color: #fff; padding: 90px 20px 110px 20px;
+    }
+    .hero h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+    .hero h1 span { color: #f5c518; }
+    .hero p { font-size: 1.1rem; margin-bottom: 35px; opacity: 0.9; }
+
+    .search-box {
+      display: flex; justify-content: center; background-color: #ffffff;
+      padding: 8px; border-radius: 6px; max-width: 900px; margin: 0 auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .search-box select, .search-box button {
+      padding: 12px; border: 1px solid #ddd; border-radius: 4px;
+      font-size: 0.9rem; flex: 1; margin: 0 4px; color: #444; outline: none;
+    }
+    .search-box button {
+      background-color: #0b1a3a; color: #fff; border: none;
+      cursor: pointer; font-weight: 600; flex: 0.8;
+    }
+    .search-box button:hover { background-color: #f5c518; color: #0b1a3a; }
+
+    /* ===== BANNER CARDS ===== */
+    .categories-container { max-width: 1100px; margin: -40px auto 40px auto; padding: 0 20px; position: relative; z-index: 10; }
+    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .category-card {
+      height: 100px; border-radius: 8px; display: flex; align-items: center; padding: 20px; color: #fff;
+      text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease;
+    }
+    .category-card:hover { transform: translateY(-5px); }
+    .category-card.rent { background: linear-gradient(rgba(11, 26, 58, 0.85), rgba(11, 26, 58, 0.85)), url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=600&q=80') center/cover; }
+    .category-card.land { background: linear-gradient(rgba(11, 26, 58, 0.85), rgba(11, 26, 58, 0.85)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80') center/cover; }
+    .category-card.commercial { background: linear-gradient(rgba(11, 26, 58, 0.85), rgba(11, 26, 58, 0.85)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80') center/cover; }
+    .category-card i { font-size: 2rem; margin-right: 15px; color: #f5c518; }
+
+    /* ===== FEATURED PROPERTIES ===== */
+    .featured { max-width: 1200px; margin: 50px auto; padding: 0 20px; text-align: center; }
+    .section-title { font-size: 2rem; color: #0b1a3a; margin-bottom: 20px; }
+    .filter-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
+    .tab-btn { padding: 8px 20px; border: 1px solid #0b1a3a; background: transparent; color: #0b1a3a; border-radius: 4px; cursor: pointer; font-weight: 600; }
+    .tab-btn.active { background: #0b1a3a; color: #fff; }
+
+    .property-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .property-card { background-color: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; text-align: left; }
+    .property-card img { width: 100%; height: 180px; object-fit: cover; }
+    .badge { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: 3px; font-size: 0.75rem; font-weight: 700; color: #fff; }
+    .badge.sale { background-color: #d9534f; }
+    .badge.rent { background-color: #0275d8; }
+    .badge.open { background-color: #198754; }
+    .badge.sold { background-color: #212529; }
+    .price-tag { position: absolute; top: 135px; right: 12px; background: rgba(11, 26, 58, 0.9); color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 0.85rem; }
+    .property-info { padding: 15px; }
+    .property-info h3 { font-size: 1.05rem; color: #0b1a3a; margin-bottom: 4px; }
+    .property-info p { color: #666; font-size: 0.9rem; }
+
+    /* ===== WHY CHOOSE US ===== */
+    .why {
+      background: linear-gradient(rgba(11, 26, 58, 0.88), rgba(11, 26, 58, 0.88)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80') center/cover;
+      padding: 60px 20px; color: #fff; text-align: center;
+    }
+    .why h2 { font-size: 2rem; margin-bottom: 35px; }
+    .why h2 span { color: #f5c518; }
+    .features-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
+    .feature-item { flex: 1; min-width: 200px; }
+    .feature-icon { width: 65px; height: 65px; background-color: #f5c518; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto; color: #0b1a3a; font-size: 1.6rem; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials { padding: 60px 20px; background-color: #fff; text-align: center; }
+    .testimonial-card { max-width: 750px; margin: 0 auto; display: flex; align-items: center; gap: 25px; background: #f9f9f9; padding: 25px; border-radius: 12px; }
+    .testimonial-card img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+    .testimonial-text { text-align: left; }
+    blockquote { font-style: italic; color: #555; margin-bottom: 8px; }
+    .client-name { font-weight: 700; color: #0b1a3a; }
+
+    /* ===== CHAT WIDGET ===== */
+    .chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 10000; }
+    .chat-btn { width: 50px; height: 50px; background-color: #0b1a3a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; float: right; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    .chat-box-popup { width: 270px; background-color: #fff; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); overflow: hidden; margin-bottom: 10px; }
+    .chat-header { background-color: #0b1a3a; color: #fff; padding: 10px 15px; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    .chat-body { padding: 12px; background-color: #f4f6f9; font-size: 0.85rem; }
+    .chat-message { background-color: #e2e8f0; padding: 8px 12px; border-radius: 8px; }
+    .chat-footer { padding: 8px 12px; display: flex; background-color: #fff; border-top: 1px solid #eee; }
+    .chat-footer input { flex: 1; border: none; outline: none; font-size: 0.8rem; }
+    .chat-footer button { background: none; border: none; color: #0b1a3a; cursor: pointer; }
+  </style>
 </head>
 <body>
+
   <!-- Header -->
   <header>
-    <!-- <div class="logo">
-      <img src="logo.png" alt="Suvarna Real Estate Logo">
-    </div> -->
+    <div class="logo">
+      <i class="fa-solid fa-house-chimney"></i>
+      Suvarna <span>REAL ESTATE</span>
+    </div>
     <nav>
       <ul>
         <li><a href="#">Home</a></li>
@@ -19,15 +126,15 @@
         <li><a href="#">Buy & Sell</a></li>
         <li><a href="#">Land</a></li>
         <li><a href="#">Commercial</a></li>
-        <li><a href="#">Contact</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1>Find Your Perfect Property with Suvarna Real Estate</h1>
+    <h1>Find Your Perfect Property with <span>Suvarna Real Estate</span></h1>
     <p>Rent, Buy, or Invest in Flats, Lands & Business Spaces</p>
+    
     <div class="search-box">
       <select><option>Property Type</option></select>
       <select><option>Location</option></select>
@@ -37,28 +144,138 @@
     </div>
   </section>
 
-  <!-- Categories -->
-  <section class="categories">
-    <div class="category-card">For Rent – Find Apartments</div>
-    <div class="category-card">Land for Sale – Explore Plots</div>
-    <div class="category-card">Commercial Properties</div>
-  </section>
+  <!-- Category Banners -->
+  <div class="categories-container">
+    <section class="categories">
+      <a href="#" class="category-card rent">
+        <i class="fa-solid fa-building"></i>
+        <div>
+          <h3>For Rent</h3>
+          <p>Find Apartments</p>
+        </div>
+      </a>
+      <a href="#" class="category-card land">
+        <i class="fa-solid fa-vector-square"></i>
+        <div>
+          <h3>Land for Sale</h3>
+          <p>Explore Plots</p>
+        </div>
+      </a>
+      <a href="#" class="category-card commercial">
+        <i class="fa-solid fa-city"></i>
+        <div>
+          <h3>Commercial</h3>
+          <p>Properties</p>
+        </div>
+      </a>
+    </section>
+  </div>
 
   <!-- Featured Properties -->
   <section class="featured">
-    <h2>Featured Properties</h2>
+    <h2 class="section-title">Featured Properties</h2>
+    
+    <div class="filter-tabs">
+      <button class="tab-btn active">For Sale</button>
+      <button class="tab-btn">For Rent</button>
+      <button class="tab-btn">Sold</button>
+    </div>
+
     <div class="property-grid">
       <div class="property-card">
-        <img src="apartment.jpg" alt="Luxury Apartment">
-        <span class="badge">FOR SALE</span>
-        <h3>Luxury Apartment</h3>
-        <p>$250,000</p>
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=500&q=80" alt="Luxury Apartment">
+        <span class="badge sale">FOR SALE</span>
+        <div class="price-tag">$250,000</div>
+        <div class="property-info">
+          <h3>Luxury Apartment</h3>
+          <p>$250,000</p>
+        </div>
       </div>
+
       <div class="property-card">
-        <img src="condo.jpg" alt="Modern Condo">
-        <span class="badge">FOR RENT</span>
-        <h3>Modern Condo</h3>
-        <p>$1,200 /mo</p>
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=500&q=80" alt="Modern Condo">
+        <span class="badge rent">FOR RENT</span>
+        <div class="price-tag">$1,200 /mo</div>
+        <div class="property-info">
+          <h3>Modern Condo</h3>
+          <p>$1,200 /mo</p>
+        </div>
       </div>
+
       <div class="property-card">
-        <img src="land.jpg" alt="Land for Sale">
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=500&q=80" alt="Land for Sale">
+        <span class="badge open">OPEN FOR SALE</span>
+        <div class="price-tag">$450,000</div>
+        <div class="property-info">
+          <h3>Land for Sale</h3>
+          <p>$450,000</p>
+        </div>
+      </div>
+
+      <div class="property-card">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=500&q=80" alt="Office Space">
+        <span class="badge sold">SOLD!</span>
+        <div class="price-tag">$450,000</div>
+        <div class="property-info">
+          <h3>Office Space</h3>
+          <p>$450,000</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="why">
+    <h2>Why Choose <span>Suvarna Real Estate?</span></h2>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-user-shield"></i></div>
+        <h3>Expert Agents</h3>
+        <p>Trusted & Experienced</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>Verified Listings</h3>
+        <p>Safe & Secure Deals</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+        <h3>24/7 Support</h3>
+        <p>Always There to Help</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2 class="section-title">Client Testimonials</h2>
+    <div class="testimonial-card">
+      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" alt="Client">
+      <div class="testimonial-text">
+        <blockquote>"Suvarna Real Estate found us our dream home! Highly recommended!"</blockquote>
+        <div class="client-name">- Rahul & Ananya</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-box-popup">
+      <div class="chat-header">
+        <i class="fa-solid fa-robot"></i> Chat with Us!
+      </div>
+      <div class="chat-body">
+        <div class="chat-message">Hi there! How can I assist you today?</div>
+      </div>
+      <div class="chat-footer">
+        <input type="text" placeholder="Type a message...">
+        <button><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+    </div>
+    <div class="chat-btn">
+      <i class="fa-solid fa-comment-dots"></i>
+    </div>
+  </div>
+
+</body>
+</html>
